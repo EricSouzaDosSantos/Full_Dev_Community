@@ -4,7 +4,7 @@ import { FaChartLine } from "react-icons/fa";
 
 export function Contact() {
     return (
-        <section className="mt-40">
+        <section className="mt-60">
             <div className="bg-gradient-orange p-6 lg:p-16 rounded-lg shadow-2xl">
                 <div className="flex justify-center lg:justify-between flex-col items-center lg:flex-row">
                 <div className="flex flex-col">
@@ -16,8 +16,8 @@ export function Contact() {
                 <Image src="/LogoContact.svg" width={300} height={300} alt="" className="hidden lg:flex" />
                 </div>
             </div>  
-            <div className="flex justify-center items-center absolute inset-0 top-[130rem] -z-10">
-                <Image src="/LogoBg.png" width={1000} height={600} alt="" />
+            <div className="flex justify-center items-center absolute inset-0 top-[100rem] -z-10">
+                <Image src="/LogoBg.png" width={700} height={600} alt="" />
             </div>
         </section>
     )
