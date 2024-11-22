@@ -12,7 +12,7 @@ export default function Login() {
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center mt-24 lg:mt-0">
-                <h1 className="text-center text-2xl lg:text-4xl font-bold">Bem vindo de volta</h1>
+                <h1 className="text-white text-center text-2xl lg:text-4xl font-bold">Bem vindo de volta</h1>
                 <p className="text-gray-500 text-center lg:text-xl mt-2">Entre para começar a criar seus formulários.</p>
                 <div>
                 <Form />
