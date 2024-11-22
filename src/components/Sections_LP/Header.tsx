@@ -8,7 +8,7 @@ export function Header() {
                 <p className="text-white text-center animate-pulse">Construa o seu formlário agora com o <span className="font-bold">Grupo 11</span></p>
             </div>
             <nav className="max-w-[1800px] mx-auto mt-6 flex justify-between">
-                <Image src="/logoWrite.svg" width={150} height={300} alt="" />
+                <Image src="/logoHeader.svg" width={150} height={300} alt="" />
                 <a href="/register">
                     <Button>Inscrever-se</Button>
                 </a>
