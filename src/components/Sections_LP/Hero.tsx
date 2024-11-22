@@ -7,7 +7,7 @@ export function Hero() {
     return (
         <section>
             <div className="flex justify-center flex-col items-center mt-60">
-                <h1 className="text-center font-semibold text-2xl lg:text-4xl text-white">
+                <h1 className="text-center font-semibold text-2xl lg:text-4xl text-white animate-bounce">
                 Crie formulários profissionais em minutos! 🚀 <br /> Simples, rápido e eficiente. Experimente agora!
                 </h1>
                 <p className="text-gray-400 text-sm lg:text-base text-center max-w-[900px] mt-6">

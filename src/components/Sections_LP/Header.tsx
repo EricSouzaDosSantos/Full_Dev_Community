@@ -9,7 +9,9 @@ export function Header() {
             </div>
             <nav className="max-w-[1800px] mx-auto mt-6 flex justify-between">
                 <Image src="/logoWrite.svg" width={150} height={300} alt="" />
-                <Button>Inscrever-se</Button>
+                <a href="/register">
+                    <Button>Inscrever-se</Button>
+                </a>
             </nav>
         </header>
     )
