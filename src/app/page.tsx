@@ -1,4 +1,5 @@
 import AnimatedBackground from "@/components/Animate/BgAnimate";
+import { Contact } from "@/components/Sections_LP/Contact";
 import { Differences } from "@/components/Sections_LP/Differences";
 import { Header } from "@/components/Sections_LP/Header";
 import { Hero } from "@/components/Sections_LP/Hero";
@@ -12,6 +13,7 @@ export default function Home(): JSX.Element {
         <div className="max-w-[1800px] mx-auto">
           <Hero />
           <Differences />
+          <Contact />
       </div>
       </div>
     </main>
