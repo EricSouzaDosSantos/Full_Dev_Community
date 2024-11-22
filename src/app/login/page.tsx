@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Form } from "./Form";
-import { Button } from "../ui/button";
+import { Form } from "@/components/FormSections/Form";
+import { Button } from "@/components/ui/button";
 import { FaFacebook, FaGoogle } from 'react-icons/fa'
 
 export default function Login() {
