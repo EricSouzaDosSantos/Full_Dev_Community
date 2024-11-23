@@ -19,7 +19,7 @@ export default function RecoverAccount() {
     <div className="min-h-screen w-full dark flex">
       <div className="hidden lg:flex w-1/2 bg-primary items-center justify-center p-8">
         <div className="text-primary-logo">
-          <Image alt="Logo FullDev" src="/LogoWhite.svg" width={340} height={340} />
+        <Image alt="Logo FullDev" src="/LogoWhite.svg" width={340} height={340} />
         </div>
       </div>
 
