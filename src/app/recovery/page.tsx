@@ -13,7 +13,7 @@ export default function RecoverAccount() {
   const [emailSent, setEmailSent] = useState(false);
 
   const handleSendEmail = () => {
-    setEmailSent(true);
+    setEmailSent(true)
 
   };
 
