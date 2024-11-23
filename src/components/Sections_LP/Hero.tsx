@@ -24,7 +24,7 @@ export function Hero() {
                     <a href="/login"><Button>Comece agora <FaGlobe /></Button></a>
                 </div>
                 <div className="mt-10">
-                    <Image src="/ImgHero.svg" width={800} height={400} priority alt="" />
+                    <Image src="/ImgHero.svg" width={800} height={400} priority alt="" className="animate-float" />
                 </div>
             </div>
         </section>

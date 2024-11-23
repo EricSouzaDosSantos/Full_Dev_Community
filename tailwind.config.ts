@@ -51,7 +51,21 @@ export default {
 					'5': 'hsl(var(--chart-5))'
 				}
 			},
-			
+			keyframes: {
+				slideCarousel: {
+				  'from': { transform: 'translateX(0)' },
+				  'to': { transform: 'translateX(-100%)' },
+				},
+				float: {
+				  '0%': { transform: 'translateY(0)' },
+				  '50%': { transform: 'translateY(-20px)' },
+				  '100%': { transform: 'translateY(0)' },
+				},
+			  },
+			  animation: {
+				slideCarousel: 'slideCarousel 65s linear infinite',
+				float: 'float 4s ease-in-out infinite', 
+			  },
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

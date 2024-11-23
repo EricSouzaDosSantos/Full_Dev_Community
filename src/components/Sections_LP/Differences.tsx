@@ -3,7 +3,7 @@ import { Card, CardDescription, CardTitle } from "../ui/card";
 
 export function Differences() {
     return (
-        <section className="px-4 lg:px-16">
+        <section className="px-4 lg:px-16 max-w-[1440px] mx-auto">
         <h1 className="text-white font-semibold text-start text-xl lg:text-3xl mt-20 mb-10">
             Por que escolher o nosso{" "}
             <span className="text-[#B22D00]">
