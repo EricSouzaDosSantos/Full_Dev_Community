@@ -30,21 +30,3 @@
 <li>TailwindCSS</li>
 <li>AOS Animation</li>
 </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1>ING<h1>
-  
-<a href="https://full-dev-community.vercel.app/">Click here for access this full dev community project | Grupo 11.</a>
