@@ -2,7 +2,7 @@ import { FaDiscord, FaGithub, FaInstagram, FaLink, FaLinkedinIn, FaTiktok, FaYou
 
 export function Copyright() {
     return (
-        <section className="flex flex-col lg:justify-between lg:flex-row mt-20 mb-10 max-w-[1440px] mx-auto">
+        <section className="flex flex-col lg:justify-between lg:flex-row mt-20 mb-10 max-w-[1440px] mx-auto font-inter">
             <div>
             <p className="text-white text-center lg:text-start mb-10">@2024 Copyright. Todos os direitos reservados Full Dev</p>
             </div>

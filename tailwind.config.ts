@@ -51,6 +51,10 @@ export default {
 					'5': 'hsl(var(--chart-5))'
 				}
 			},
+			fontFamily: {
+				inter: ['var(--font-inter)', 'sans-serif'],
+				roboto: ['var(--font-roboto-rounded)', 'sans-serif'],
+			  },
 			keyframes: {
 				slideCarousel: {
 				  'from': { transform: 'translateX(0)' },
