@@ -6,7 +6,7 @@ import Image from "next/image";
 export function Hero() {
     return (
         <section>
-            <div className="flex justify-center flex-col items-center mt-40">
+            <div className="flex justify-center flex-col items-center mt-20">
                 <h1 className="text-center font-semibold text-2xl lg:text-4xl text-white" data-aos="flip-up">
                 <div className="flex gap-2 justify-center items-center mb-2 animate-bounce">
                     <FaStar className="text-yellow-500" size={25} />
