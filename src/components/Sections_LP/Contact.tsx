@@ -8,8 +8,8 @@ export function Contact() {
             <div className="bg-gradient-orange p-6 lg:p-16 rounded-lg shadow-2xl neon-border">
                 <div className="flex justify-center lg:justify-between flex-col items-center lg:flex-row">
                 <div className="flex flex-col">
-                    <h1 className="text-white font-bold text-xl lg:text-3xl max-w-[600px] mb-10">Ainda tem dúvidas que o nosso form builder é o melhor!? Venha agora conhecer a nossa plataforma 🚀 </h1>
-                    <a href="/register" className="text-[#E14817]">
+                    <h1 className="text-white font-bold text-xl lg:text-3xl max-w-[600px] mb-10" data-aos="fade-down">Ainda tem dúvidas que o nosso form builder é o melhor!? Venha agora conhecer a nossa plataforma 🚀 </h1>
+                    <a data-aos="fade-down" data-aos-delay="200" href="/register" className="text-[#E14817]">
                     <Button variant="outline">Conheça a plataforma agora!<FaChartLine /></Button>
                 </a>
                 </div>

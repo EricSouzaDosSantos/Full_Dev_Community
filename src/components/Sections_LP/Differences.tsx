@@ -4,14 +4,14 @@ import { Card, CardDescription, CardTitle } from "../ui/card";
 export function Differences() {
     return (
         <section className="px-4 lg:px-16 max-w-[1440px] mx-auto">
-        <h1 className="text-white font-semibold text-start text-xl lg:text-3xl mt-20 mb-10">
+        <h1 className="text-white font-semibold text-start text-xl lg:text-3xl mt-20 mb-10" data-aos="flip-up">
             Por que escolher o nosso{" "}
             <span className="text-[#B22D00]">
             construtor <br /> de formulários
             </span>
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <Card className="p-6 border border-white/30 bg-black rounded-lg shadow-md">
+            <Card className="p-6 border border-white/30 bg-black rounded-lg shadow-md" data-aos="fade-up">
             <div className="flex items-center mb-4">
                 <div className="flex items-center justify-center w-10 h-10 bg-[#B22D00] text-white rounded-full">
                 <FaCheckDouble className="text-lg" />
@@ -26,7 +26,7 @@ export function Differences() {
                 perfeitamente à sua identidade visual.
             </CardDescription>
             </Card>
-            <Card className="p-6 border border-white/30 bg-black rounded-lg shadow-md">
+            <Card className="p-6 border border-white/30 bg-black rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
             <div className="flex items-center mb-4">
                 <div className="flex items-center justify-center w-10 h-10 bg-[#B22D00] text-white rounded-full">
                 <FaCheckDouble className="text-lg" />
@@ -41,7 +41,7 @@ export function Differences() {
                 conhecimentos técnicos.
             </CardDescription>
         </Card>
-        <Card className="p-6 border border-white/30 bg-black rounded-lg shadow-md">
+        <Card className="p-6 border border-white/30 bg-black rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="300">
           <div className="flex items-center mb-4">
             <div className="flex items-center justify-center w-10 h-10 bg-[#B22D00] text-white rounded-full">
               <FaCheckDouble className="text-lg" />
