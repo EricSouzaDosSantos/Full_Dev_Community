@@ -9,7 +9,7 @@ export function Header() {
             </div>
             <nav className="max-w-[1800px] mx-auto mt-6 flex justify-between">
                 <Image src="/logoHeader.png" width={150} height={300} alt="" data-aos="fade-down" />
-                <a href="/register" data-aos="fade-down" data-aos-delay="200">
+                <a href="/register" data-aos="fade-down" data-aos-delay="200" className="font-inter">
                     <Button>Inscrever-se</Button>
                 </a>
             </nav>

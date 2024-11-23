@@ -1,35 +1,22 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter, } from "next/font/google";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+// Fonte Inter
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter", 
 });
 
-export const metadata: Metadata = {
-  title: "Full Dev | Grupo 11",
-  description: "Construtor de formulário. Form.Builder",
-};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-br">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
-      >
+    <html lang="pt-BR">
+      <head />
+      <body className={`${inter.variable} bg-black`}>
         {children}
       </body>
     </html>
   );
 }
+
