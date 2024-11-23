@@ -27,7 +27,7 @@ export function Hero() {
                     <Image src="/ImgHero.svg" width={800} height={400} priority alt="" className="animate-float" />
                 </div>
             </div>
-            <div className="mt-40 mb-40 flex justify-center items-center" data-aos="zoom-out">
+            <div className="mt-40 mb-16 flex justify-center items-center" data-aos="zoom-out">
                 <Image src="/ProgressBarImage.png" width={800} height={200} alt="" />
             </div>
         </section>
