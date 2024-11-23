@@ -5,7 +5,7 @@ import "./globals.css";
 // Fonte Inter
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter", // Remova a barra extra
+  variable: "--font-inter", 
 });
 
 
