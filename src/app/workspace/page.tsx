@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,38 +13,35 @@ import {
 import { ChevronLeft, ChevronRight, FileEdit, Import, Menu, Plus, Share2, Trash2 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useForms } from "@/hooks/useForms";
+import Link from "next/link";
 import { EditFormDialog } from "@/components/EditFormDialog";
 import { DeleteFormDialog } from "@/components/DeleteFormDialog";
-import Link from "next/link";
+import { Form } from '@/types/Form';
+import Image from 'next/image';
+
 
 export default function Dashboard() {
-  const {
-    forms,
-    editingForm,
-    setEditingForm,
-    deletingForm,
-    setDeletingForm,
-    handleDelete,
-  } = useForms();
+  const [forms, setForms] = useState<Form[]>([
+    {
+      id: "1",
+      name: "Formulário de teste",
+      createdAt: new Date("2024-12-07"),
+      responsesCount: 44,
+    },
+  ])
+  const [editingForm, setEditingForm] = useState<Form | null>(null)
+  const [deletingForm, setDeletingForm] = useState<Form | null>(null)
+
+  const handleDelete = (id: string) => {
+    setForms((prev) => prev.filter((form) => form.id !== id))
+    setDeletingForm(null)
+  }
+
 
   const Sidebar = () => (
     <div className="w-64 bg-card p-6">
       <div className="mb-8">
-        <svg
-          className="h-8 w-8 text-primary"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M12 2L2 7L12 12L22 7L12 2Z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <Image src="/LogoWhite.svg" width={50} height={50} alt='Logo' />
       </div>
       <nav className="space-y-2">
         <Button variant="ghost" className="w-full justify-start">
@@ -83,7 +81,7 @@ export default function Dashboard() {
               </SheetContent>
             </Sheet>
           </div>
-          <div className="mb-6 space-y-4 w-full">
+          <div className="mb-6 space-y-4">
             <Tabs defaultValue="formularios" className="w-full">
               <TabsList className="grid w-full md:w-max grid-cols-3">
                 <TabsTrigger value="formularios">Formulários</TabsTrigger>
@@ -91,7 +89,7 @@ export default function Dashboard() {
                 <TabsTrigger value="configuracoes">Configurações</TabsTrigger>
               </TabsList>
             </Tabs>
-            <div className="flex flex-col gap-4 w-full  sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-4 w-full sm:flex-row sm:items-center sm:justify-between">
               <Input
                 placeholder="Buscar formulários"
                 className="max-w-xs w-full"
@@ -122,7 +120,7 @@ export default function Dashboard() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {forms.map((form) => (
+              {forms.map((form) => (
                   <TableRow key={form.id}>
                     <TableCell>{form.name}</TableCell>
                     <TableCell className="hidden sm:table-cell">
@@ -136,17 +134,17 @@ export default function Dashboard() {
                           size="icon"
                           onClick={() => setEditingForm(form)}
                         >
-                          <FileEdit color="white" className="h-4 w-4" />
+                          <FileEdit className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="icon">
-                          <Share2 color="white" className="h-4 w-4" />
+                          <Share2 className="h-4 w-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="icon"
                           onClick={() => setDeletingForm(form)}
                         >
-                          <Trash2 color="white" className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>
@@ -166,6 +164,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+   
       {editingForm && (
         <EditFormDialog
           form={editingForm}
