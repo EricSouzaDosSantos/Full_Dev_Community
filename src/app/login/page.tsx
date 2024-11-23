@@ -1,23 +1,32 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import Image from "next/image"
-import Link from "next/link"
+'use client'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Image from "next/image";
+import Link from "next/link";
+import spinnerloading from "./../../../public/isloading.svg";
 
 export default function LoginPage() {
-    
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  };
+
   return (
-    <div className="min-h-screen w-full dark flex">
-      <div className="hidden lg:flex w-1/2 bg-primary items-center justify-center p-8">
-        <div className="text-primary-foreground">
-         <Image alt="Logo FullDev" src="/LogoWhite.svg" width={240} height={240} />
-        </div>
+    <div className="min-h-screen w-full flex dark flex-col lg:flex-row">
+      <div className="lg:w-1/2 bg-primary items-center justify-center p-8 hidden lg:flex">
+        <Image alt="Logo FullDev" src="/LogoWhite.svg" width={240} height={240} />
       </div>
 
-      <div className="flex-1 flex items-center justify-center p-8">
-        <Card className="w-full max-w-md">
+      <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
+        <Card className="w-full max-w-md mx-auto">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">Bem vindo de volta</CardTitle>
             <CardDescription>
@@ -25,35 +34,33 @@ export default function LoginPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
+            <div className="space-y-2 w-full">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="seu@email.com" />
+              <Input id="email" type="email" placeholder="seu@email.com" className="w-full" />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 w-full">
               <Label htmlFor="password">Senha</Label>
-              <Input id="password" placeholder="Insira sua senha" type="password" />
+              <Input id="password" type="password" placeholder="Insira sua senha" className="w-full" />
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <Checkbox id="remember" />
-                <label
-                  htmlFor="remember"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
+                <label htmlFor="remember" className="text-sm font-medium">
                   Lembrar de mim
                 </label>
               </div>
-              <Link
-                href="#"
-                className="text-sm font-medium text-primary hover:underline"
-              >
+              <Link href="/recovery" className="text-sm font-medium text-primary hover:underline">
                 Esqueci a senha
               </Link>
             </div>
-            <Button className="w-full">
-              Entrar
+            <Button className="w-full" onClick={handleLogin} disabled={isLoading}>
+              {isLoading ? (
+                <Image src={spinnerloading} alt="Carregando" className="animate-spin h-5 w-5 mr-3" />
+              ) : (
+                "Entrar"
+              )}
             </Button>
-            <div className="relative">
+            <div className="relative mt-4">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
               </div>
@@ -63,9 +70,10 @@ export default function LoginPage() {
                 </span>
               </div>
             </div>
+
             <div className="space-y-2">
               <Button variant="outline" className="w-full">
-                <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+              <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                     fill="#4285F4"
@@ -94,7 +102,7 @@ export default function LoginPage() {
             </div>
             <div className="text-center text-sm">
               Não tem uma conta?{" "}
-              <Link href="#" className="text-primary hover:underline">
+              <Link href="/register" className="text-primary hover:underline">
                 Crie agora uma
               </Link>
             </div>
@@ -102,6 +110,5 @@ export default function LoginPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
-
