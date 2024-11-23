@@ -15,7 +15,7 @@ export default function Register() {
       </div>
 
       <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
-        <Card className="w-full max-w-md mx-auto">
+      <Card className="w-full max-w-md mx-auto overflow-hidden rounded-lg shadow-lg">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">Criar uma nova conta</CardTitle>
             <CardDescription>

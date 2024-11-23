@@ -22,7 +22,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen w-full flex dark flex-col lg:flex-row">
       <div className="lg:w-1/2 bg-primary items-center justify-center p-8 hidden lg:flex">
-        <Image alt="Logo FullDev" src="/LogoWhite.svg" width={240} height={240} />
+      <Image alt="Logo FullDev" src="/LogoWhite.svg" width={340} height={340} />
       </div>
 
       <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
