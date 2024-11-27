@@ -18,6 +18,7 @@ import { EditFormDialog } from "@/components/EditFormDialog";
 import { DeleteFormDialog } from "@/components/DeleteFormDialog";
 import { Form } from '@/types/Form';
 import Image from 'next/image';
+import SidebarMenu from '@/components/SidebarMenu';
 
 
 export default function Dashboard() {
@@ -37,35 +38,11 @@ export default function Dashboard() {
     setDeletingForm(null)
   }
 
-
-  const Sidebar = () => (
-    <div className="w-64 bg-card p-6">
-      <div className="mb-8">
-        <Image src="/LogoWhite.svg" width={50} height={50} alt='Logo' />
-      </div>
-      <nav className="space-y-2">
-        <Button variant="ghost" className="w-full justify-start">
-          <FileEdit color="white" className="mr-2 h-4 w-4" />
-          Meus formulários
-        </Button>
-        <Button variant="ghost" className="w-full justify-start">
-          <Share2 color="white" className="mr-2 h-4 w-4" />
-          Compartilhados
-        </Button>
-        <Button variant="ghost" className="w-full justify-start">
-          <Trash2 color="white" className="mr-2 h-4 w-4" />
-          Deletados
-        </Button>
-      </nav>
-      <div className="border-l border-border h-full ml-4 mt-4" />
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="flex min-h-screen p-6">
+      <div className="flex min-h-s p-6">
         <div className="hidden md:block">
-          <Sidebar />
+          <SidebarMenu />
         </div>
         <div className="flex-1 overflow-auto p-6 rounded-xl border border-border shadow-lg">
           <div className="mb-6 flex items-center justify-between">
@@ -77,7 +54,7 @@ export default function Dashboard() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-64 p-0">
-                <Sidebar />
+                <SidebarMenu />
               </SheetContent>
             </Sheet>
           </div>
