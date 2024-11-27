@@ -13,7 +13,7 @@ import { Switch } from "@/components/ui/switch"
 interface FormElementProps {
   element: {
     id: number;
-    type: 'text' | 'textarea' | 'radio' | 'checkbox';
+    type: 'text' | 'textarea' | 'radio' | 'checkbox'; 
     question: string;
     options: string[];
     required: boolean;
@@ -101,6 +101,7 @@ export function FormElement({ element, isActive, onClick, onUpdate, onDelete }: 
       {element.type === 'text' && (
         <Input placeholder="Resposta curta" disabled />
       )}
+
       {element.type === 'textarea' && (
         <Textarea placeholder="Resposta longa" disabled />
       )}

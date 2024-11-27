@@ -15,9 +15,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { BarChart, ImportIcon as FileImport, Share2, Settings, Send, Plus, Eye, Undo2, Redo2, Menu } from 'lucide-react'
-import { FormElement } from "@/components/form-element"
-import { FormPreview } from "@/components/form-preview"
-import { PageManager } from "@/components/page-manager"
+import { FormElement } from "@/components/FormBuilder/form-element"
+import { FormPreview } from "@/components/FormBuilder/form-preview"
+import { PageManager } from "@/components/FormBuilder/page-manager"
 
 interface FormElement {
   id: number;
@@ -103,16 +103,27 @@ export default function FormBuilder() {
     setActivePage(newPage.id)
   }
 
-const deletePage = (pageId: number) => {
-  const updatedPages = pages.filter(page => page.id !== pageId);
+  const deletePage = (pageId: number) => {
+    const updatedPages = pages.filter(page => page.id !== pageId);
+    setPages(updatedPages);
 
-  setPages(updatedPages);
-
-  if (pageId === activePage) {
-    setActivePage(updatedPages.length > 0 ? updatedPages[0].id : 1);
+    if (pageId === activePage) {
+      setActivePage(updatedPages.length > 0 ? Math.min(activePage, updatedPages.length) : 1);
+    } else {
+      setActivePage(activePage > pageId ? activePage - 1 : activePage);
+    }
+  
+    const reindexedPages = updatedPages.map((page, index) => ({
+      ...page,
+      id: index + 1,  
+    }));
+  
+    setPages(reindexedPages);
+    
+    if (activePage > reindexedPages.length) {
+      setActivePage(reindexedPages.length);
+    }
   }
-}
-
   
 
   return (
@@ -140,23 +151,26 @@ const deletePage = (pageId: number) => {
                   <span className="hidden sm:inline">Configurações</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="w-max">
                 <DialogHeader>
                   <DialogTitle>Configurações do Formulário</DialogTitle>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="name" className="text-right">
+                <div className="grid items-center gap-4 py-4 w-max">
+                  <div className="grid items-center gap-4 w-full">
+                    <Label htmlFor="name" className="">
                       Nome
                     </Label>
                     <Input id="name" defaultValue="Meu Formulário" className="col-span-3" />
                   </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="description" className="text-right">
+                  <div className="grid items-center gap-4 w-full">
+                    <Label htmlFor="description" className="">
                       Descrição
                     </Label>
-                    <Textarea id="description" placeholder="Descrição do formulário" className="col-span-3" />
+                    <Textarea id="description" placeholder="Descrição do formulário" className="w-full" />
                   </div>
+                  <Button variant="fulldev" size="sm" className="mt-4 w-full">
+                    Salvar Configurações
+                  </Button>
                 </div>
               </DialogContent>
             </Dialog>
@@ -180,13 +194,13 @@ const deletePage = (pageId: number) => {
               </DialogContent>
             </Dialog>
             <Dialog>
-              <DialogTrigger asChild>
+              <DialogTrigger asChild className="w-max">
                 <Button variant="outline" size="sm">
-                  <FileImport className="mr-2 h-4 w-4" />
+                  <FileImport className="mr-2 h-4 w-max" />
                   <span className="hidden sm:inline">Importar dados</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="w-max">
                 <DialogHeader>
                   <DialogTitle>Importar Dados</DialogTitle>
                 </DialogHeader>

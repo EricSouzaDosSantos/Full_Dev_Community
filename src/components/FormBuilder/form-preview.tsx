@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -32,11 +32,6 @@ interface FormPreviewProps {
 export function FormPreview({ pages }: FormPreviewProps) {
   const [currentPage, setCurrentPage] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string | string[]>>({})
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    setProgress((currentPage / (pages.length - 1)) * 100)
-  }, [currentPage, pages.length])
 
   const handleNext = () => {
     if (currentPage < pages.length - 1) {
@@ -51,7 +46,7 @@ export function FormPreview({ pages }: FormPreviewProps) {
   }
 
   const handleAnswer = (elementId: number, value: string | string[]) => {
-    setAnswers({ ...answers, [elementId]: value })
+    setAnswers((prev) => ({ ...prev, [elementId]: value }))
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -61,98 +56,98 @@ export function FormPreview({ pages }: FormPreviewProps) {
     }
   }
 
+  const renderInput = (element: FormElement) => (
+    <Input
+      id={`preview-${element.id}`}
+      placeholder="Sua resposta"
+      value={answers[element.id] as string || ''}
+      onChange={(e) => handleAnswer(element.id, e.target.value)}
+      onKeyDown={handleKeyDown}
+      className="text-2xl p-4 border-none shadow-none focus:ring-0"
+    />
+  )
+
+  const renderTextarea = (element: FormElement) => (
+    <Textarea
+      id={`preview-${element.id}`}
+      placeholder="Sua resposta"
+      value={answers[element.id] as string || ''}
+      onChange={(e) => handleAnswer(element.id, e.target.value)}
+      onKeyDown={handleKeyDown}
+      className="text-2xl p-4 border-none shadow-none focus:ring-0 resize-none"
+      rows={5}
+    />
+  )
+
+  const renderRadio = (element: FormElement) => (
+    <RadioGroup
+      value={answers[element.id] as string || ''}
+      onValueChange={(value) => handleAnswer(element.id, value)}
+    >
+      {element.options.map((option, index) => (
+        <div key={index} className="flex items-center space-x-2 mb-4">
+          <RadioGroupItem 
+            value={option} 
+            id={`preview-radio-${element.id}-${index}`}
+            className="border-2"
+          />
+          <Label 
+            htmlFor={`preview-radio-${element.id}-${index}`} 
+            className="text-xl"
+          >
+            {option}
+          </Label>
+        </div>
+      ))}
+    </RadioGroup>
+  )
+
+  const renderCheckbox = (element: FormElement) => (
+    <div className="space-y-4">
+      {element.options.map((option, index) => (
+        <div key={index} className="flex items-center space-x-2">
+          <Checkbox
+            id={`preview-checkbox-${element.id}-${index}`}
+            checked={(answers[element.id] as string[] || []).includes(option)}
+            onCheckedChange={(checked) => {
+              const currentAnswers = answers[element.id] as string[] || []
+              const updatedAnswers = checked
+                ? [...currentAnswers, option]
+                : currentAnswers.filter(item => item !== option)
+              handleAnswer(element.id, updatedAnswers)
+            }}
+            className="border-2"
+          />
+          <Label 
+            htmlFor={`preview-checkbox-${element.id}-${index}`} 
+            className="text-xl"
+          >
+            {option}
+          </Label>
+        </div>
+      ))}
+    </div>
+  )
+
   const renderElement = (element: FormElement) => {
     switch (element.type) {
-      case 'text':
-        return (
-          <Input
-            id={`preview-${element.id}`}
-            placeholder="Sua resposta"
-            value={answers[element.id] as string || ''}
-            onChange={(e) => handleAnswer(element.id, e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="text-2xl p-4 border-none shadow-none focus:ring-0"
-          />
-        )
-      case 'textarea':
-        return (
-          <Textarea
-            id={`preview-${element.id}`}
-            placeholder="Sua resposta"
-            value={answers[element.id] as string || ''}
-            onChange={(e) => handleAnswer(element.id, e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="text-2xl p-4 border-none shadow-none focus:ring-0 resize-none"
-            rows={5}
-          />
-        )
-      case 'radio':
-        return (
-          <RadioGroup
-            value={answers[element.id] as string || ''}
-            onValueChange={(value) => handleAnswer(element.id, value)}
-          >
-            {element.options.map((option, index) => (
-              <div key={index} className="flex items-center space-x-2 mb-4">
-                <RadioGroupItem 
-                  value={option} 
-                  id={`preview-radio-${element.id}-${index}`}
-                  className="border-2"
-                />
-                <Label 
-                  htmlFor={`preview-radio-${element.id}-${index}`} 
-                  className="text-xl"
-                >
-                  {option}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        )
-      case 'checkbox':
-        return (
-          <div className="space-y-4">
-            {element.options.map((option, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`preview-checkbox-${element.id}-${index}`}
-                  checked={(answers[element.id] as string[] || []).includes(option)}
-                  onCheckedChange={(checked) => {
-                    const currentAnswers = answers[element.id] as string[] || []
-                    const updatedAnswers = checked
-                      ? [...currentAnswers, option]
-                      : currentAnswers.filter(item => item !== option)
-                    handleAnswer(element.id, updatedAnswers)
-                  }}
-                  className="border-2"
-                />
-                <Label 
-                  htmlFor={`preview-checkbox-${element.id}-${index}`} 
-                  className="text-xl"
-                >
-                  {option}
-                </Label>
-              </div>
-            ))}
-          </div>
-        )
-      default:
-        return null
+      case 'text': return renderInput(element)
+      case 'textarea': return renderTextarea(element)
+      case 'radio': return renderRadio(element)
+      case 'checkbox': return renderCheckbox(element)
+      
+      default: return null
     }
   }
 
   const currentElement = pages[currentPage]?.elements[0]
+  const progress = ((currentPage / (pages.length - 1)) * 100).toFixed(0)
 
   return (
     <div className="h-full flex flex-col justify-between bg-background">
-      
       <div className="w-full h-1 bg-muted">
-      <DialogTitle>Visualização do Formulário</DialogTitle>
-
-        <div 
-          className="h-full transition-all duration-300 ease-in-out bg-primary"
-          style={{ width: `${progress}%` }}
-        ></div>
+        <DialogTitle>Visualização do Formulário</DialogTitle>
+        <div className="h-full transition-all duration-300 ease-in-out bg-primary" style={{ width: `${progress}%` }}></div>
       </div>
       <div className="flex-1 flex flex-col justify-center items-center p-4 md:p-8">
         <div className="w-full max-w-2xl space-y-8">
