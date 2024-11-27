@@ -33,7 +33,7 @@ export default function CreateForm() {
                 className="h-full w-full justify-start p-0"
                 asChild
               >
-                <Link href="/form/create" className="flex flex-col items-center text-center">
+                <Link href="/form/builder" className="flex flex-col items-center text-center">
                   <div className="mb-4 rounded-full bg-primary/10 p-4">
                     <PenLine className="h-6 w-6 text-primary" />
                   </div>
