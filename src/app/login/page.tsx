@@ -8,15 +8,41 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import Link from "next/link";
 import spinnerloading from "./../../../public/isloading.svg";
+import { login, AuthDTO } from "../../services/endpoint/authService";
+import { redirectToFacebookAuth, redirectToGoogleAuth } from "../../services/endpoint/otherAuthService";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState<string | null>(null);
 
-  const handleLogin = () => {
+
+
+  const handleLoginWithEmail = async () => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+      setTimeout(async () => {
+        setIsLoading(false);
+        try {
+          const authData: AuthDTO = { email, password };
+          await login(authData);
+          window.location.href = "/workspace"
+        } catch (error) {
+          console.log("erro ao fazer login "+error)
+          setMessage('Falha no login. Verifique suas credenciais.');
+        }
+      }, 2000);
+  };
+  
+
+  
+
+  const handleLoginWithGoogle = async () =>{
+    redirectToGoogleAuth();
+  };
+
+  const handleLoginWithFacebook = async () =>{
+    redirectToFacebookAuth();
   };
 
   return (
@@ -36,11 +62,11 @@ export default function LoginPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2 w-full">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="seu@email.com" className="w-full" />
+              <Input id="email" type="email" placeholder="seu@email.com" className="w-full" onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="space-y-2 w-full">
               <Label htmlFor="password">Senha</Label>
-              <Input id="password" type="password" placeholder="Insira sua senha" className="w-full" />
+              <Input id="password" type="password" placeholder="Insira sua senha" className="w-full" onChange={(e) => setPassword(e.target.value)} />
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -53,13 +79,14 @@ export default function LoginPage() {
                 Esqueci a senha
               </Link>
             </div>
-            <Button className="w-full" onClick={handleLogin} disabled={isLoading}>
+            <Button className="w-full" onClick={handleLoginWithEmail} disabled={isLoading}>
               {isLoading ? (
                 <Image src={spinnerloading} alt="Carregando" className="animate-spin h-5 w-5 mr-3" />
               ) : (
                 "Entrar"
               )}
             </Button>
+            {message && <p>{message}</p>}
             <div className="relative mt-4">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -72,7 +99,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={handleLoginWithGoogle}>
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -93,7 +120,7 @@ export default function LoginPage() {
                 </svg>
                 Entrar usando a conta do Google
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full" onClick={handleLoginWithFacebook}>
                 <svg className="mr-2 h-4 w-4" fill="#1877f2" viewBox="0 0 24 24">
                   <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z" />
                 </svg>
