@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,24 +18,41 @@ import { EditFormDialog } from "@/components/EditFormDialog";
 import { DeleteFormDialog } from "@/components/DeleteFormDialog";
 import { Form } from '@/types/Form';
 import Image from 'next/image';
+import { getForms } from '@/services/endpoint/form';
 
 
 export default function Dashboard() {
-  const [forms, setForms] = useState<Form[]>([
-    {
-      id: "1",
-      name: "Formulário de teste",
-      createdAt: new Date("2024-12-07"),
-      responsesCount: 44,
-    },
-  ])
-  const [editingForm, setEditingForm] = useState<Form | null>(null)
-  const [deletingForm, setDeletingForm] = useState<Form | null>(null)
+  const [forms, setForms] = useState<Form[]>([]); 
+  const [editingForm, setEditingForm] = useState<Form | null>(null);
+  const [deletingForm, setDeletingForm] = useState<Form | null>(null);
+  // const [forms, setForms] = useState<Form[]>([
+  //   {
+  //     id: "1",
+  //     title: "Formulário de teste",
+  //     createdAt: new Date("2024-12-07"),
+  //     responsesCount: 44,
+  //   },
+  // ])
+  // const [editingForm, setEditingForm] = useState<Form | null>(null)
+  // const [deletingForm, setDeletingForm] = useState<Form | null>(null)
 
   const handleDelete = (id: string) => {
     setForms((prev) => prev.filter((form) => form.id !== id))
     setDeletingForm(null)
   }
+
+  const loadForms = async () => {
+    try {
+      const fetchedForms = await getForms();  
+      setForms(fetchedForms);  
+    } catch (error) {
+      console.error('Erro ao carregar os formulários', error);
+    }
+  };
+
+  useEffect(() => {
+    loadForms();
+  }, []);
 
 
   const Sidebar = () => (
@@ -122,9 +139,9 @@ export default function Dashboard() {
               <TableBody>
               {forms.map((form) => (
                   <TableRow key={form.id}>
-                    <TableCell>{form.name}</TableCell>
+                    <TableCell>{form.title}</TableCell>
                     <TableCell className="hidden sm:table-cell">
-                      {form.createdAt.toLocaleDateString('pt-BR')}
+                      {new Date(form.createdAt).toLocaleDateString('pt-BR')}
                     </TableCell>
                     <TableCell>{form.responsesCount} respostas</TableCell>
                     <TableCell>

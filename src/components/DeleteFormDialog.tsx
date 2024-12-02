@@ -21,7 +21,7 @@ export function DeleteFormDialog({
         <DialogHeader>
           <DialogTitle>Deletar formulário</DialogTitle>
           <DialogDescription>
-          Você tem certeza que deseja deletar "{form.name}"? Essa são não poderá ser revertida.
+          Você tem certeza que deseja deletar "{form.title}"? Essa são não poderá ser revertida.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-4">
