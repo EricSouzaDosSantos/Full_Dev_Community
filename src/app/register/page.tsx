@@ -29,9 +29,9 @@ export default function Register() {
       setTimeout(async () => {
         setIsLoading(false);
         try {
-          // const authData: RegisterDTO = { email, password };
-          // const response = await register(authData);
-          // console.log(response)
+          const authData: RegisterDTO = { email, password };
+          const response = await register(authData);
+          console.log(response)
           handleSendEmail()
         } catch (error) {
           console.log("erro ao fazer login "+error)

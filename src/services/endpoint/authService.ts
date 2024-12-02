@@ -10,7 +10,6 @@ export interface AuthDTO {
 export interface RegisterDTO {
   email: string;
   password: string;
-  token : String;
 }
 
 export interface LoginResponseDTO {
