@@ -18,6 +18,7 @@ import { BarChart, ImportIcon as FileImport, Share2, Settings, Send, Plus, Eye, 
 import { FormElement } from "@/components/FormBuilder/form-element"
 import { FormPreview } from "@/components/FormBuilder/form-preview"
 import { PageManager } from "@/components/FormBuilder/page-manager"
+import { createForm } from "@/services/endpoint/form"
 
 interface FormElement {
   id: number;
@@ -34,8 +35,9 @@ interface FormPage {
 }
 
 export default function FormBuilder() {
-  const [pages, setPages] = useState<FormPage[]>([{ id: 1, elements: [] }]) 
-  
+  const [pages, setPages] = useState<FormPage[]>([{ id: 1, elements: [] }])
+  const [formTitle, setFormTitle] = useState("Meu Formulário");
+  const [formDescription, setFormDescription] = useState("");
   const [activePage, setActivePage] = useState(1)
   const [showLeftSidebar, setShowLeftSidebar] = useState(false)
   const [activeElement, setActiveElement] = useState<number | null>(null)
@@ -44,7 +46,7 @@ export default function FormBuilder() {
   useEffect(() => {
     const savedPages = localStorage.getItem('formPages');
     const savedActivePage = localStorage.getItem('activePage');
-    
+
     if (savedPages) {
       setPages(JSON.parse(savedPages));
     }
@@ -69,8 +71,8 @@ export default function FormBuilder() {
       required: false,
       description: '',
     }
-    const updatedPages = pages.map(page => 
-      page.id === activePage 
+    const updatedPages = pages.map(page =>
+      page.id === activePage
         ? { ...page, elements: [...page.elements, newElement] }
         : page
     )
@@ -112,19 +114,27 @@ export default function FormBuilder() {
     } else {
       setActivePage(activePage > pageId ? activePage - 1 : activePage);
     }
-  
+
     const reindexedPages = updatedPages.map((page, index) => ({
       ...page,
-      id: index + 1,  
+      id: index + 1,
     }));
-  
+
     setPages(reindexedPages);
-    
+
     if (activePage > reindexedPages.length) {
       setActivePage(reindexedPages.length);
     }
   }
-  
+
+  const saveForm = async () => {
+    try {
+      await createForm(pages, formTitle, formDescription);
+    } catch (error) {
+      console.error("Erro ao salvar o formulário:", error);
+    }
+  };
+
 
   return (
     <div className="flex flex-col h-screen">
@@ -160,13 +170,24 @@ export default function FormBuilder() {
                     <Label htmlFor="name" className="">
                       Nome
                     </Label>
-                    <Input id="name" defaultValue="Meu Formulário" className="col-span-3" />
+                    <Input
+                      id="name"
+                      value={formTitle}
+                      onChange={(e) => setFormTitle(e.target.value)}
+                      className="col-span-3"
+                    />
                   </div>
                   <div className="grid items-center gap-4 w-full">
                     <Label htmlFor="description" className="">
                       Descrição
                     </Label>
-                    <Textarea id="description" placeholder="Descrição do formulário" className="w-full" />
+                    <Textarea
+                      id="description"
+                      placeholder="Descrição do formulário"
+                      value={formDescription}
+                      onChange={(e) => setFormDescription(e.target.value)}
+                      className="w-full"
+                    />
                   </div>
                   <Button variant="fulldev" size="sm" className="mt-4 w-full">
                     Salvar Configurações
@@ -215,7 +236,7 @@ export default function FormBuilder() {
               <span className="hidden sm:inline">Estatísticas</span>
             </Button>
           </div>
-          <Button className="bg-primary hover:bg-primary/90">
+          <Button className="bg-primary hover:bg-primary/90" onClick={saveForm}>
             <Send className="mr-2 h-4 w-4" />
             <span className="hidden sm:inline">Publicar</span>
           </Button>
@@ -226,7 +247,7 @@ export default function FormBuilder() {
         <div className={`w-64 border-r ${showLeftSidebar ? 'block' : 'hidden'} md:block`}>
           <ScrollArea className="h-full">
             <div className="p-4 space-y-4">
-              <PageManager 
+              <PageManager
                 pages={pages}
                 activePage={activePage}
                 setActivePage={setActivePage}
@@ -261,9 +282,9 @@ export default function FormBuilder() {
                   Visualizar
                 </Button>
               </DialogTrigger>
-              
+
               <DialogContent className="max-w-full h-screen p-0">
-                
+
                 <FormPreview pages={pages} />
               </DialogContent>
             </Dialog>
