@@ -19,6 +19,7 @@ import { DeleteFormDialog } from "@/components/DeleteFormDialog";
 import { Form } from '@/types/Form';
 import Image from 'next/image';
 import { getForms } from '@/services/endpoint/form';
+import SidebarMenu from '@/components/SidebarMenu';
 
 
 export default function Dashboard() {
@@ -80,9 +81,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="flex min-h-screen p-6">
+      <div className="flex min-h-s p-6">
         <div className="hidden md:block">
-          <Sidebar />
+          <SidebarMenu />
         </div>
         <div className="flex-1 overflow-auto p-6 rounded-xl border border-border shadow-lg">
           <div className="mb-6 flex items-center justify-between">
@@ -94,7 +95,7 @@ export default function Dashboard() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-64 p-0">
-                <Sidebar />
+                <SidebarMenu />
               </SheetContent>
             </Sheet>
           </div>
